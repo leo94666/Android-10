@@ -50,36 +50,47 @@ using namespace android::init;
 
 /**
  * @brief 
+ * 1.参数中有ueventd，进入ueventd_main
+ * 2.参数中有subcontext,进入InitLogging和SubcontextMain
+ * 3.参数中有selinux_setup，进入SetupSelinux
+ * 4.参数中有second_stage，进入SecondStageMain
  * 
- * @param argc 
- * @param argv 
+ * main函数执行顺序：
+ * 1.ueventd_main，init进程创建子进程ueventd，并将创建设备节点文件的工作托付于ueventd，ueventd通过两种方式创建设备节点文件
+ * 2.FirstStageMain 启动第一阶段
+ * 3.SetupSelinux 加载selinux规则，并设置selinux日志，完成selinux相关工作
+ * 4.SecondStageMain 启动第二阶段
+ * 
+ * @param argc 参数个数
+ * @param argv 参数列表，具体的参数
  * @return int 
  */
 int main(int argc, char** argv) {
 #if __has_feature(address_sanitizer)
     __asan_set_error_report_callback(AsanReportCallback);
 #endif
-
+    //当argv[0]的内容为ueventd时，执行ueventd_main，ueventd主要是负责设备节点的创建、权限设定等一些列工作
     if (!strcmp(basename(argv[0]), "ueventd")) {
         return ueventd_main(argc, argv);
     }
-
+    //当传入的参数个数大于1时，执行下面几个操作
     if (argc > 1) {
+        //参数为subcontext，初始化日志系统
         if (!strcmp(argv[1], "subcontext")) {
             android::base::InitLogging(argv, &android::base::KernelLogger);
             const BuiltinFunctionMap function_map;
 
             return SubcontextMain(argc, argv, &function_map);
         }
-
+        //参数为selinux_setup，启动SeLinux安全策略
         if (!strcmp(argv[1], "selinux_setup")) {
             return SetupSelinux(argv);
         }
-
+        //参数为second_stage，启动init进程第二阶段
         if (!strcmp(argv[1], "second_stage")) {
             return SecondStageMain(argc, argv);
         }
     }
-
+    //默认启动第一阶段
     return FirstStageMain(argc, argv);
 }
