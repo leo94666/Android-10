@@ -615,6 +615,20 @@ static void UmountDebugRamdisk() {
     }
 }
 
+
+/**
+ * @brief 第二阶段主要内容：
+
+* 创建进程会话密钥并初始化属性系统
+* 进行SELinux第二阶段并恢复一些文件安全上下文
+* 新建epoll并初始化子进程终止信号处理函数，详细看第五节-信号处理
+* 启动匹配属性的服务端， 详细查看第六节-属性服务
+* 解析init.rc等文件，建立rc文件的action 、service，启动其他进程，详细查看第七节-rc文件解析
+ * 
+ * @param argc 
+ * @param argv 
+ * @return int 
+ */
 int SecondStageMain(int argc, char** argv) {
     if (REBOOT_BOOTLOADER_ON_PANIC) {
         InstallRebootSignalHandlers();
@@ -635,11 +649,14 @@ int SecondStageMain(int argc, char** argv) {
     // Set up a session keyring that all processes will have access to. It
     // will hold things like FBE encryption keys. No process should override
     // its session keyring.
+    /* 01. 创建进程会话密钥并初始化属性系统 */
     keyctl_get_keyring_ID(KEY_SPEC_SESSION_KEYRING, 1);
 
     // Indicate that booting is in progress to background fw loaders, etc.
+        //创建 /dev/.booting 文件，就是个标记，表示booting进行中
     close(open("/dev/.booting", O_WRONLY | O_CREAT | O_CLOEXEC, 0000));
 
+    // 初始化属性系统，并从指定文件读取属性
     property_init();
 
     // If arguments are passed both on the command line and in DT,
@@ -674,8 +691,10 @@ int SecondStageMain(int argc, char** argv) {
     // Now set up SELinux for second stage.
     SelinuxSetupKernelLogging();
     SelabelInitialize();
+    /* 02. 进行SELinux第二阶段并恢复一些文件安全上下文 */
     SelinuxRestoreContext();
 
+    /* 03. 新建epoll并初始化子进程终止信号处理函数 */
     Epoll epoll;
     if (auto result = epoll.Open(); !result) {
         PLOG(FATAL) << result.error();
@@ -687,6 +706,7 @@ int SecondStageMain(int argc, char** argv) {
     UmountDebugRamdisk();
     fs_mgr_vendor_overlay_mount_all();
     export_oem_lock_status();
+    /* 04. 设置其他系统属性并开启系统属性服务*/
     StartPropertyService(&epoll);
     MountHandler mount_handler(&epoll);
     set_usb_controller();
@@ -700,6 +720,7 @@ int SecondStageMain(int argc, char** argv) {
 
     subcontexts = InitializeSubcontexts();
 
+    /* 05 解析init.rc等文件，建立rc文件的action 、service，启动其他进程*/
     ActionManager& am = ActionManager::GetInstance();
     ServiceList& sm = ServiceList::GetInstance();
 
