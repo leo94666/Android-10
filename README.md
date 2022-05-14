@@ -1,3 +1,74 @@
+
+#### 说明
+
+由于Android系统源码已经有Git版本管理，在学习该源码时候，已经学习的源码均用svn管理
+
+
+```shell
+svn checkout svn://gitee.com/leo94666/android-10 android10
+svn add README.md
+svn update .\
+svn commit -m "First Commit"
+svn add system/core/init/init.cpp --parents
+svn update .\
+svn commit -m "First Commit"\
+svn info
+svn add system/core/init/main.cpp
+svn add system/core/rootdir/init.rc
+svn add system/core/rootdir/init.rc --parent
+svn add system/core/rootdir/init.rc --parents
+svn add system/core/rootdir/init.zygote32.rc
+svn add system/core/rootdir/init.zygote32_64.rc
+svn add system/core/rootdir/init.zygote64.rc
+svn add system/core/rootdir/init.zygote64_32.rc
+svn add system/core/fastboot/fastboot.cpp
+svn add system/core/fastboot/fastboot.cpp --parents
+svn add system/core/fastboot/fastboot.h --parents
+ svn add frameworks/base/cmds/app_process/app_main.cpp --parents
+svn add frameworks/base/core/jni/AndroidRuntime.cpp
+svn add frameworks/base/core/jni/AndroidRuntime.cpp --parents
+svn add frameworks/base/core/java/com/android/internal/os/Zygote.java --parents
+svn add frameworks/base/core/java/com/android/internal/os/ZygoteInit.java
+svn add frameworks/base/services/java/com/android/server/SystemServer.java 
+svn add frameworks/base/services/java/com/android/server/SystemServer.java  --parents
+svn add frameworks/base/packages/SystemUI/src/com/android/systemui/SystemUIService.java --parents
+svn commit -m "First Commit"\
+svn add frameworks/base/core/java/android/app/Activity.java --parents
+svn add frameworks/base/core/java/android/app/Service.java
+svn add frameworks/base/core/java/android/app/ActivityThread.java
+svn add frameworks/base/core/java/android/os/ServiceManager.java
+svn add frameworks/base/core/java/android/os/ServiceManager.java --parents
+svn add frameworks/base/core/java/android/os/ServiceManagerNative.java
+svn add frameworks/native/cmds/servicemanager/service_manager.c
+svn add frameworks/native/cmds/servicemanager/service_manager.c --parents
+svn add frameworks/native/cmds/servicemanager/binder.c
+svn add frameworks/native/cmds/servicemanager/binder.h
+svn add frameworks/native/cmds/servicemanager/servicemanager.rc
+svn add frameworks/base/core/java/android/os/IInterface.java
+svn add frameworks/base/core/java/android/os/IBinder.java
+svn add frameworks/base/core/java/android/os/Parcel.java
+svn add frameworks/base/core/java/android/os/IServiceManager.java
+svn add frameworks/base/core/java/android/os/ServiceManagerNative.java
+svn add frameworks/native/libs/binder/ProcessState.cpp --parents
+svn commit -m "First Commit"\
+cd /Volumes/Android/android10
+source build/envsetup.sh
+lunch
+make -
+make -j16
+svn info
+svn update
+svn add kernel/msm/net/socket.c --parents
+svn add kernel/msm/include/linux/socket.h --parents
+vn commit -m "First Commit"\
+
+svn update
+svn add kernel/msm/net/ipv4 --parents
+svn add kernel/msm/net/ipv6 --parents
+
+```
+
+
 sudo xcode-select -switch /Library/Developer/CommandLineTools
 
 #### envsetup:
