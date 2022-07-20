@@ -1029,6 +1029,13 @@ public final class SystemServer {
                     /* allowIsolated= */ false, DUMP_FLAG_PRIORITY_CRITICAL);
             traceEnd();
 
+
+            traceBeginAndSlog("StartDemoService");
+            ServiceManager.addService(Context.DEMO_SERVICE, new DemoManagerService(context));
+            traceEnd();
+
+            
+
             traceBeginAndSlog("SetWindowManagerService");
             mActivityManagerService.setWindowManager(wm);
             traceEnd();
