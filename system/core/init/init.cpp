@@ -125,10 +125,13 @@ Parser CreateServiceOnlyParser(ServiceList& service_list) {
 }
 
 static void LoadBootScripts(ActionManager& action_manager, ServiceList& service_list) {
+    //创建解析器
     Parser parser = CreateParser(action_manager, service_list);
-
+    //获取缓存
     std::string bootscript = GetProperty("ro.boot.init_rc", "");
+    
     if (bootscript.empty()) {
+        //寻找init文件并解析
         parser.ParseConfig("/init.rc");
         if (!parser.ParseConfig("/system/etc/init")) {
             late_import_paths.emplace_back("/system/etc/init");
@@ -146,6 +149,7 @@ static void LoadBootScripts(ActionManager& action_manager, ServiceList& service_
             late_import_paths.emplace_back("/vendor/etc/init");
         }
     } else {
+        //解析init相关配置
         parser.ParseConfig(bootscript);
     }
 }
@@ -649,14 +653,14 @@ int SecondStageMain(int argc, char** argv) {
     // Set up a session keyring that all processes will have access to. It
     // will hold things like FBE encryption keys. No process should override
     // its session keyring.
-    /* 01. 创建进程会话密钥并初始化属性系统 */
+    //创建进程会话密钥并初始化属性系统
     keyctl_get_keyring_ID(KEY_SPEC_SESSION_KEYRING, 1);
 
     // Indicate that booting is in progress to background fw loaders, etc.
         //创建 /dev/.booting 文件，就是个标记，表示booting进行中
     close(open("/dev/.booting", O_WRONLY | O_CREAT | O_CLOEXEC, 0000));
 
-    // 初始化属性系统，并从指定文件读取属性
+    //初始化属性服务，并从指定文件读取属性
     property_init();
 
     // If arguments are passed both on the command line and in DT,
@@ -689,24 +693,26 @@ int SecondStageMain(int argc, char** argv) {
     unsetenv("INIT_FORCE_DEBUGGABLE");
 
     // Now set up SELinux for second stage.
+    //进行SELinux第二阶段并恢复一些文件安全上下文
     SelinuxSetupKernelLogging();
     SelabelInitialize();
-    /* 02. 进行SELinux第二阶段并恢复一些文件安全上下文 */
     SelinuxRestoreContext();
 
-    /* 03. 新建epoll并初始化子进程终止信号处理函数 */
+    //新建epoll并初始化子进程终止信号处理函数
     Epoll epoll;
     if (auto result = epoll.Open(); !result) {
         PLOG(FATAL) << result.error();
     }
 
+    //初始化single句柄
     InstallSignalFdHandler(&epoll);
 
     property_load_boot_defaults(load_debug_prop);
     UmountDebugRamdisk();
     fs_mgr_vendor_overlay_mount_all();
     export_oem_lock_status();
-    /* 04. 设置其他系统属性并开启系统属性服务*/
+    // 开启属性服务
+    // 设置其他系统属性并开启系统属性服务
     StartPropertyService(&epoll);
     MountHandler mount_handler(&epoll);
     set_usb_controller();
@@ -720,10 +726,9 @@ int SecondStageMain(int argc, char** argv) {
 
     subcontexts = InitializeSubcontexts();
 
-    /* 05 解析init.rc等文件，建立rc文件的action 、service，启动其他进程*/
+    //解析init.rc等文件，建立rc文件的action 、service，启动其他进程
     ActionManager& am = ActionManager::GetInstance();
     ServiceList& sm = ServiceList::GetInstance();
-
     LoadBootScripts(am, sm);
 
     // Turning this on and letting the INFO logging be discarded adds 0.2s to
