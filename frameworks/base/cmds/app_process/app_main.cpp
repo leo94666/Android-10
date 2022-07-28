@@ -6,7 +6,8 @@
  */
 
 #define LOG_TAG "appproc"
-
+//打开ALOGV调试信息
+#define LOG_NDEBUG 0
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/prctl.h>
@@ -172,6 +173,7 @@ static const char ZYGOTE_NICE_NAME[] = "zygote";
 
 int main(int argc, char* const argv[])
 {
+    //打印传入的参数
     if (!LOG_NDEBUG) {
       String8 argv_String;
       for (int i = 0; i < argc; ++i) {
@@ -181,10 +183,13 @@ int main(int argc, char* const argv[])
       }
       ALOGV("app_process main with argv: %s", argv_String.string());
     }
-
+    //创建AndroidRuntime环境，并将参数传入, 参数如下
+    ///system/bin/app_process64 -Xzygote /system/bin --zygote --start-system-server --socket-name=zygote
     AppRuntime runtime(argv[0], computeArgBlockSize(argc, argv));
+
     // Process command line arguments
     // ignore argv[0]
+    //将argc减１，将指针argv后移一位，此时argv指向-Xzygote。
     argc--;
     argv++;
 
@@ -218,6 +223,8 @@ int main(int argc, char* const argv[])
     bool known_command = false;
 
     int i;
+    //-Xzygote /system/bin --zygote --start-system-server --socket-name=zygote
+    //该循环检索参数，并传入到runtime中
     for (i = 0; i < argc; i++) {
         if (known_command == true) {
           runtime.addOption(strdup(argv[i]));
@@ -239,6 +246,7 @@ int main(int argc, char* const argv[])
         }
 
         if (argv[i][0] != '-') {
+            //第一个参数如果不是以-开头，则跳出循环
             break;
         }
         if (argv[i][1] == '-' && argv[i][2] == 0) {
@@ -261,11 +269,12 @@ int main(int argc, char* const argv[])
     String8 className;
 
     ++i;  // Skip unused "parent dir" argument.
+    //-Xzygote /system/bin --zygote --start-system-server --socket-name=zygote
     while (i < argc) {
         const char* arg = argv[i++];
         if (strcmp(arg, "--zygote") == 0) {
             zygote = true;
-            niceName = ZYGOTE_NICE_NAME;
+            niceName = ZYGOTE_NICE_NAME; //"zygote"
         } else if (strcmp(arg, "--start-system-server") == 0) {
             startSystemServer = true;
         } else if (strcmp(arg, "--application") == 0) {
@@ -288,7 +297,9 @@ int main(int argc, char* const argv[])
         //
         // The Remainder of args get passed to startup class main(). Make
         // copies of them before we overwrite them with the process name.
+        // className不为空，不是zygote模式情况下，需要传入application参数
         args.add(application ? String8("application") : String8("tool"));
+        //设置类名和参数
         runtime.setClassNameAndArgs(className, argc - i, argv + i);
 
         if (!LOG_NDEBUG) {
@@ -304,6 +315,11 @@ int main(int argc, char* const argv[])
         }
     } else {
         // We're in zygote mode.
+        // zygote模式
+
+        //设置虚拟机所使用的指令集(arm64,x86_64,arm,x86,mips)
+        //划分虚拟机使用的cache
+        //将cache的文件权限设置为711(即-rwx--x--x（文件所有者拥有读，写，执行的权限，其他所有的用户只拥有执行的权限）),拥有者为root user。
         maybeCreateDalvikCache();
 
         if (startSystemServer) {
@@ -316,7 +332,7 @@ int main(int argc, char* const argv[])
                 ABI_LIST_PROPERTY);
             return 11;
         }
-
+        //设置ABI_LIST
         String8 abiFlag("--abi-list=");
         abiFlag.append(prop);
         args.add(abiFlag);
@@ -327,12 +343,14 @@ int main(int argc, char* const argv[])
             args.add(String8(argv[i]));
         }
     }
-
+    //将niceName添加到runtime对象中
     if (!niceName.isEmpty()) {
         runtime.setArgv0(niceName.string(), true /* setProcName */);
     }
 
+
     if (zygote) {
+        //传入的参数携带--zygote
         runtime.start("com.android.internal.os.ZygoteInit", args, zygote);
     } else if (className) {
         runtime.start("com.android.internal.os.RuntimeInit", args, zygote);
@@ -341,4 +359,7 @@ int main(int argc, char* const argv[])
         app_usage();
         LOG_ALWAYS_FATAL("app_process: no class name or --zygote supplied.");
     }
+    //1.判断是否防止了动态的改变权限
+    //2.创建了dalvik虚拟机的内存空间，设置了权限，指令集，ABI_LIST
+    //3.调用runtime.start方法
 }

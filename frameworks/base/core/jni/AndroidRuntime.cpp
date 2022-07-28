@@ -1143,6 +1143,7 @@ void AndroidRuntime::start(const char* className, const Vector<String8>& options
         }
     }
 
+    //1.1获取ANDROID_ROOT的值，赋给rootDir，如果该值为null，就新增该变量，并将其值设置为”/system”
     const char* rootDir = getenv("ANDROID_ROOT");
     if (rootDir == NULL) {
         rootDir = "/system";
@@ -1152,13 +1153,13 @@ void AndroidRuntime::start(const char* className, const Vector<String8>& options
         }
         setenv("ANDROID_ROOT", rootDir, 1);
     }
-
+    //1.2获取ANDROID_RUNTIME_ROOT的值，为空则返回
     const char* runtimeRootDir = getenv("ANDROID_RUNTIME_ROOT");
     if (runtimeRootDir == NULL) {
         LOG_FATAL("No runtime directory specified with ANDROID_RUNTIME_ROOT environment variable.");
         return;
     }
-
+    //1.3获取ANDROID_TZDATA_ROOT的值，为空则返回
     const char* tzdataRootDir = getenv("ANDROID_TZDATA_ROOT");
     if (tzdataRootDir == NULL) {
         LOG_FATAL("No tz data directory specified with ANDROID_TZDATA_ROOT environment variable.");
@@ -1168,6 +1169,7 @@ void AndroidRuntime::start(const char* className, const Vector<String8>& options
     //const char* kernelHack = getenv("LD_ASSUME_KERNEL");
     //ALOGD("Found LD_ASSUME_KERNEL='%s'\n", kernelHack);
 
+    //2.创建Java虚拟机
     /* start the virtual machine */
     JniInvocation jni_invocation;
     jni_invocation.Init(NULL);
@@ -1175,11 +1177,13 @@ void AndroidRuntime::start(const char* className, const Vector<String8>& options
     if (startVm(&mJavaVM, &env, zygote) != 0) {
         return;
     }
+    //回调，并传入参数
     onVmCreated(env);
 
     /*
      * Register android functions.
      */
+    //3.注册JNI函数
     if (startReg(env) < 0) {
         ALOGE("Unable to register all android natives\n");
         return;
@@ -1189,6 +1193,7 @@ void AndroidRuntime::start(const char* className, const Vector<String8>& options
      * We want to call main() with a String array with arguments in it.
      * At present we have two arguments, the class name and an option string.
      * Create an array to hold them.
+     * 4.构建一个String数组，这个数组含有两个元素：classname, option。这个数组用于后面第五步的main函数的参数
      */
     jclass stringClass;
     jobjectArray strArray;
@@ -1200,11 +1205,13 @@ void AndroidRuntime::start(const char* className, const Vector<String8>& options
     assert(strArray != NULL);
     classNameStr = env->NewStringUTF(className);
     assert(classNameStr != NULL);
+    //设置第一个元素值为com.android.internal.os.zygoteInit
     env->SetObjectArrayElement(strArray, 0, classNameStr);
 
     for (size_t i = 0; i < options.size(); ++i) {
         jstring optionsStr = env->NewStringUTF(options.itemAt(i).string());
         assert(optionsStr != NULL);
+        //设置第二个元素值为start-system-server！
         env->SetObjectArrayElement(strArray, i + 1, optionsStr);
     }
 
@@ -1212,18 +1219,22 @@ void AndroidRuntime::start(const char* className, const Vector<String8>& options
      * Start VM.  This thread becomes the main thread of the VM, and will
      * not return until the VM exits.
      */
+    //5.开启虚拟机，此线程就变成虚拟机的主线程，除非虚拟机退出，否则这个线程是不会返回的
+    //根据jni函数的规范，将前面的com.android.internal.os.zygoteInit转换为斜线的形式
     char* slashClassName = toSlashClassName(className != NULL ? className : "");
     jclass startClass = env->FindClass(slashClassName);
     if (startClass == NULL) {
         ALOGE("JavaVM unable to locate class '%s'\n", slashClassName);
         /* keep going */
     } else {
+        //获取com.android.internal.os.zygoteInit#main的methodId
         jmethodID startMeth = env->GetStaticMethodID(startClass, "main",
             "([Ljava/lang/String;)V");
         if (startMeth == NULL) {
             ALOGE("JavaVM unable to find main() in '%s'\n", className);
             /* keep going */
         } else {
+                    //调用该类的main函数，并传入参数
             env->CallStaticVoidMethod(startClass, startMeth, strArray);
 
 #if 0

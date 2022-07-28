@@ -815,6 +815,8 @@ public class ZygoteInit {
         return result;
     }
 
+    //在AndroidRuntime里的start函数中启动
+    //在调用zygoteInit的main函数后，zygote便进入了java世界！所以说zygote是android系统中JAVA世界的鼻祖！
     @UnsupportedAppUsage
     public static void main(String argv[]) {
         ZygoteServer zygoteServer = null;
