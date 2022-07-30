@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # GNU Make 3.81
 # Copyright (C) 2006  Free Software Foundation, Inc.
@@ -8,10 +9,23 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
 
 # Make data base, printed on Sat Jul 30 16:26:04 2022
+=======
+make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 3.82.90
+# Built for i686-pc-mingw32
+# Copyright (C) 1988-2012 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+ 
+
+# Make data base, printed on Thu Jul 28 09:40:36 2022
+>>>>>>> 71b716d249fde9d0ed9185c1d74d77b2022a867f
 
 # Variables
 
 # automatic
+<<<<<<< HEAD
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
 ?F = $(notdir $?)
@@ -91,11 +105,117 @@ VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
 XPC_FLAGS = 0x0
+=======
+<D = $(patsubst %/,%,$(patsubst %\,%,$(dir $<)))
+# automatic
+?F = $(notdir $?)
+# default
+.SHELLFLAGS := -c
+# makefile
+MAKEFLAGS = Rrqp
+# automatic
+?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
+# automatic
+@D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
+# environment
+HOMEDRIVE = C:
+# automatic
+@F = $(notdir $@)
+# automatic
+^D = $(patsubst %/,%,$(patsubst %\,%,$(dir $^)))
+# makefile
+CURDIR := d:/Android/android-10
+# default
+SHELL := sh.exe
+# environment
+WINDIR = C:\Windows
+# environment
+VSCODE_NLS_CONFIG = {"locale":"zh-cn","availableLanguages":{"*":"zh-cn"},"_languagePackId":"1d735750dbb1b9066c7513078396ba0f.zh-cn","_translationsConfigFile":"C:\\Users\\liyang\\AppData\\Roaming\\Code\\clp\\1d735750dbb1b9066c7513078396ba0f.zh-cn\\tcf.json","_cacheRoot":"C:\\Users\\liyang\\AppData\\Roaming\\Code\\clp\\1d735750dbb1b9066c7513078396ba0f.zh-cn","_resolvedLanguagePackCoreLocation":"C:\\Users\\liyang\\AppData\\Roaming\\Code\\clp\\1d735750dbb1b9066c7513078396ba0f.zh-cn\\3b889b090b5ad5793f524b5d1d39fda662b96a2a","_corruptedFile":"C:\\Users\\liyang\\AppData\\Roaming\\Code\\clp\\1d735750dbb1b9066c7513078396ba0f.zh-cn\\corrupted.info","_languagePackSupport":true}
+# environment
+NVM_HOME = C:\Users\liyang\Downloads\nvm-noinstall
+# environment
+MAVEN_HOME = C:\apache-maven-3.8.6-bin\apache-maven-3.8.6
+# environment
+PATHEXT = .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC
+# makefile
+MAKEFILE_LIST := 
+# environment
+FPS_BROWSER_USER_PROFILE_STRING = Default
+# environment
+TMP = C:\Users\liyang\AppData\Local\Temp
+# environment
+PROGRAMW6432 = C:\Program Files
+# environment
+NVM_SYMLINK = C:\Program Files\nodejs
+# environment
+PROGRAMDATA = C:\ProgramData
+# environment
+VSCODE_CWD = C:\Users\liyang\AppData\Local\Programs\Microsoft VS Code
+# environment
+PATH = C:\Program Files\Common Files\Oracle\Java\javapath;D:\Program Files (x86)\VMware\VMware Workstation\bin\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;D:\Program Files\Git\cmd;D:\Android\sdk\platform-tools;F:\liyang\clib\ffmpeg\bin;C:\Program Files\LLVM\bin;C:\Program Files (x86)\IncrediBuild;D:\Program Files\Java\jdk-11.0.15.1\bin;C:\Program Files\nodejs\;D:\Android\ndk\android-ndk-r18b;C:\Users\liyang\AppData\Local\Microsoft\WindowsApps;D:\Program Files\Fiddler;C:\Users\liyang\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\liyang\AppData\Roaming\npm;C:\Program Files\nodejs;D:\Android\flutter\bin;C:\Program Files\dotnet\;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\apache-maven-3.8.6-bin\apache-maven-3.8.6\bin;C:\gradle-7.4.2\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;D:\Program Files\Go\bin;C:\MinGW\bin;C:\ProgramData\chocolatey\bin;C:\Users\liyang\AppData\Local\Microsoft\WindowsApps;D:\Program Files\Fiddler;C:\Users\liyang\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\liyang\AppData\Roaming\npm;C:\Users\liyang\.dotnet\tools;D:\Qt\6.2.4\mingw_64\bin;D:\Qt\6.2.4\mingw_64;D:\Qt\Tools\mingw1120_64\bin;D:\Qt\Tools\CMake_64\bin;;C:\Users\liyang\AppData\Local\JetBrains\Toolbox\scripts;C:\Users\liyang\go\bin;C:\Users\liyang\.dotnet\tools
+# environment
+COMMONPROGRAMW6432 = C:\Program Files\Common Files
+# environment
+CHOCOLATEYLASTPATHUPDATE = 133033846358187295
+# environment
+PROCESSOR_ARCHITECTURE = x86
+# environment
+ONEDRIVE = C:\Users\liyang\OneDrive
+# environment
+USERPROFILE = C:\Users\liyang
+# environment
+CHOCOLATEYINSTALL = C:\ProgramData\chocolatey
+# environment
+ALLUSERSPROFILE = C:\ProgramData
+# environment
+GOPATH = C:\Users\liyang\go
+# environment
+NUMBER_OF_PROCESSORS = 8
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver
+# automatic
+%F = $(notdir $%)
+# environment
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_6304_NCAPPEIORELMEUHX
+# environment
+COMPUTERNAME = DESKTOP-M4HU4N1
+# environment
+PROGRAMFILES = C:\Program Files (x86)
+# environment
+DRIVERDATA = C:\Windows\System32\Drivers\DriverData
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = undefined
+# environment
+USERNAME = liyang
+# environment
+PUBLIC = C:\Users\Public
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+VSCODE_CODE_CACHE_PATH = C:\Users\liyang\AppData\Roaming\Code\CachedData\3b889b090b5ad5793f524b5d1d39fda662b96a2a
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# environment
+COMMONPROGRAMFILES = C:\Program Files (x86)\Common Files
+# environment
+LOGONSERVER = \\DESKTOP-M4HU4N1
+# environment
+ONEDRIVECONSUMER = C:\Users\liyang\OneDrive
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# environment
+USERDOMAIN = DESKTOP-M4HU4N1
+# environment
+MAKELEVEL := 0
+>>>>>>> 71b716d249fde9d0ed9185c1d74d77b2022a867f
 # default
 MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # environment
+<<<<<<< HEAD
 PUB_HOSTED_URL = https://pub.flutter-io.cn
 # default
 MAKE_VERSION := 3.81
@@ -141,11 +261,65 @@ FLUTTER_STORAGE_BASE_URL = https://storage.flutter-io.cn
 __CF_USER_TEXT_ENCODING = 0x1F5:0x19:0x34
 # environment
 COMMAND_MODE = unix2003
+=======
+JAVA_HOME = D:\Program Files\Java\jdk1.8.0_202
+# default
+MAKE_VERSION := 3.82.90
+# makefile
+.DEFAULT_GOAL := 
+# environment
+CLASSPATH = .;D:\Program Files\Java\jdk1.8.0_202\lib\dt.jar;D:\Program Files\Java\jdk1.8.0_202\lib\tools.jar;
+# environment
+PROGRAMFILES(X86) = C:\Program Files (x86)
+# automatic
+%D = $(patsubst %/,%,$(patsubst %\,%,$(dir $%)))
+# environment
+LOCALAPPDATA = C:\Users\liyang\AppData\Local
+# environment
+PSMODULEPATH = C:\Program Files\WindowsPowerShell\Modules;C:\Windows\system32\WindowsPowerShell\v1.0\Modules
+# default
+MAKE_COMMAND := make.exe
+# environment
+PROCESSOR_ARCHITEW6432 = AMD64
+# default
+.VARIABLES := 
+# automatic
+*F = $(notdir $*)
+# environment
+PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 158 Stepping 13, GenuineIntel
+# environment
+OS = Windows_NT
+# environment
+VSCODE_IPC_HOOK = \\.\pipe\5e08bf56ce2562d3be87bf41939b5222-1.69.2-main-sock
+# environment
+HOMEPATH = \Users\liyang
+# environment
+COMMONPROGRAMFILES(X86) = C:\Program Files (x86)\Common Files
+# environment
+PROMPT = $P$G
+# environment
+MFLAGS = -Rrqp
+# automatic
+*D = $(patsubst %/,%,$(patsubst %\,%,$(dir $*)))
+# environment
+SYSTEMROOT = C:\Windows
+# automatic
++D = $(patsubst %/,%,$(patsubst %\,%,$(dir $+)))
+# automatic
++F = $(notdir $+)
+# environment
+APPDATA = C:\Users\liyang\AppData\Roaming
+# environment
+TEMP = C:\Users\liyang\AppData\Local\Temp
+# environment
+COMSPEC = C:\Windows\system32\cmd.exe
+>>>>>>> 71b716d249fde9d0ed9185c1d74d77b2022a867f
 # default
 MAKEFILES := 
 # automatic
 <F = $(notdir $<)
 # environment
+<<<<<<< HEAD
 PAGER = less
 # environment
 ANDROID_SDK_ROOT = /Users/liyang/Android/sdk
@@ -155,10 +329,14 @@ LC_ALL = C
 ROOT10_12 = /Library/Developer/CommandLineTools/SDKs/MacOSX10.12.sdk
 # environment
 JAVA_11_HOME = /Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home
+=======
+LC_ALL = C
+>>>>>>> 71b716d249fde9d0ed9185c1d74d77b2022a867f
 # automatic
 ^F = $(notdir $^)
 # default
 SUFFIXES := 
+<<<<<<< HEAD
 # default
 .INCLUDE_DIRS = /usr/local/include
 # environment
@@ -173,6 +351,32 @@ LANG = C
 VSCODE_PID = 41037
 # variable set hash-table stats:
 # Load=80/1024=8%, Rehash=0, Collisions=3/101=3%
+=======
+# environment
+SYSTEMDRIVE = C:
+# environment
+SESSIONNAME = Console
+# environment
+PROCESSOR_REVISION = 9e0d
+# environment
+VS140COMNTOOLS = C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\
+# default
+.INCLUDE_DIRS = C:/MinGW/include
+# default
+.RECIPEPREFIX := 
+# environment
+LANG = C
+# environment
+PROCESSOR_LEVEL = 6
+# environment
+FPS_BROWSER_APP_PROFILE_STRING = Internet Explorer
+# environment
+VSCODE_PID = 6304
+# environment
+USERDOMAIN_ROAMINGPROFILE = DESKTOP-M4HU4N1
+# variable set hash-table stats:
+# Load=96/1024=9%, Rehash=0, Collisions=12/112=11%
+>>>>>>> 71b716d249fde9d0ed9185c1d74d77b2022a867f
 
 # Pattern-specific Variable Values
 
@@ -180,9 +384,55 @@ VSCODE_PID = 41037
 
 # Directories
 
+<<<<<<< HEAD
 # . (device 16777220, inode 31280495): 12 files, no impossibilities.
 
 # 12 files, no impossibilities in 1 directories.
+=======
+# : could not be stat'd.
+# C:\ProgramData\DockerDesktop\version-bin: could not be stat'd.
+# C:\gradle-7.4.2\bin (key C:/gradle-7.4.2/bin, mtime 1655257952): 4 files, no impossibilities.
+# D:\Program Files\Fiddler (key D:/Program Files/Fiddler, mtime 1646359814): 42 files, no impossibilities.
+# D:\Android\ndk\android-ndk-r18b (key D:/Android/ndk/android-ndk-r18b, mtime 1643010058): 23 files, no impossibilities.
+# C:\Users\liyang\.dotnet\tools: could not be stat'd.
+# C:\apache-maven-3.8.6-bin\apache-maven-3.8.6\bin (key C:/apache-maven-3.8.6-bin/apache-maven-3.8.6/bin, mtime 1655199081): 8 files, no impossibilities.
+# C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR (key C:/Program Files/NVIDIA Corporation/NVIDIA NvDLISR, mtime 1656405045): 5 files, no impossibilities.
+# C:\Windows\System32\WindowsPowerShell\v1.0\ (key C:/Windows/System32/WindowsPowerShell/v1.0/, mtime 1639621082): 31 files, no impossibilities.
+# . (key d:/Android/android-10, mtime 1658884956): 12 files, no impossibilities.
+# D:\Qt\6.2.4\mingw_64: could not be stat'd.
+# C:\Program Files\Docker\Docker\resources\bin (key C:/Program Files/Docker/Docker/resources/bin, mtime 1653451003): 13 files, no impossibilities.
+# D:\Program Files\Git\cmd (key D:/Program Files/Git/cmd, mtime 1639633194): 8 files, no impossibilities.
+# C:\Windows\System32\OpenSSH\: could not be stat'd.
+# C:\MinGW\bin (key C:/MinGW/bin, mtime 1658909000): 144 files, no impossibilities.
+# C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common (key C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common, mtime 1656405035): 10 files, no impossibilities.
+# D:\Android\sdk\platform-tools (key D:/Android/sdk/platform-tools, mtime 1655278450): 18 files, no impossibilities.
+# C:\Users\liyang\AppData\Local\JetBrains\Toolbox\scripts (key C:/Users/liyang/AppData/Local/JetBrains/Toolbox/scripts, mtime 1658972312): 5 files, no impossibilities.
+# C:\Users\liyang\go\bin (key C:/Users/liyang/go/bin, mtime 1658716510): 3 files, no impossibilities.
+# C:\ProgramData\chocolatey\bin (key C:/ProgramData/chocolatey/bin, mtime 1658911162): 12 files, no impossibilities.
+# C:\Windows (key C:/Windows, mtime 1658884688): 107 files, no impossibilities.
+# C:\Program Files\LLVM\bin (key C:/Program Files/LLVM/bin, mtime 1641534219): 118 files, no impossibilities.
+# D:\Qt\Tools\mingw1120_64\bin: could not be stat'd.
+# C:\Windows\System32\Wbem (key C:/Windows/System32/Wbem, mtime 1658138415): 170 files, no impossibilities.
+# D:\Program Files\Go\bin (key D:/Program Files/Go/bin, mtime 1658714549): 4 files, no impossibilities.
+# C:\Users\liyang\AppData\Roaming\npm (key C:/Users/liyang/AppData/Roaming/npm, mtime 1657249424): 51 files, no impossibilities.
+# D:\Program Files\Java\jdk-11.0.15.1\bin (key D:/Program Files/Java/jdk-11.0.15.1/bin, mtime 1655275338): 124 files, no impossibilities.
+# C:\Program Files (x86)\IncrediBuild (key C:/Program Files (x86)/IncrediBuild, mtime 1641870463): 119 files, no impossibilities.
+# D:\Android\flutter\bin (key D:/Android/flutter/bin, mtime 1652665412): 9 files, no impossibilities.
+# D:\Qt\Tools\CMake_64\bin: could not be stat'd.
+# F:\liyang\clib\ffmpeg\bin (key F:/liyang/clib/ffmpeg/bin, mtime 1643015732): 13 files, no impossibilities.
+# C:\Program Files\Common Files\Oracle\Java\javapath (key C:/Program Files/Common Files/Oracle/Java/javapath, mtime 1655275339): 6 files, no impossibilities.
+# C:\Program Files\nodejs\ (key C:/Program Files/nodejs/, mtime 1646638613): 13 files, no impossibilities.
+# C:\Users\liyang\AppData\Local\Microsoft\WindowsApps (key C:/Users/liyang/AppData/L 
+ocal/Microsoft/WindowsApps, mtime 1658910004): 15 files, no impossibilities.
+# C:\Windows\system32 (key C:/Windows/system32, mtime 1658742476): 3081 files, no impossibilities.
+# D:\Qt\6.2.4\mingw_64\bin: could not be stat'd.
+# C:\Program Files\nodejs (key C:/Program Files/nodejs, mtime 1646638613): 13 files, no impossibilities.
+# C:\Program Files\dotnet\ (key C:/Program Files/dotnet/, mtime 1658820916): 13 files, no impossibilities.
+# D:\Program Files (x86)\VMware\VMware Workstation\bin\ (key D:/Program Files (x86)/VMware/VMware Workstation/bin/, mtime 1653014220): 4 files, no impossibilities.
+# C:\Users\liyang\AppData\Local\Programs\Microsoft VS Code\bin (key C:/Users/liyang/AppData/Local/Programs/Microsoft VS Code/bin, mtime 1658217070): 4 files, no impossibilities.
+
+# 4202 files, no impossibilities in 40 directories.
+>>>>>>> 71b716d249fde9d0ed9185c1d74d77b2022a867f
 
 # Implicit Rules
 
@@ -192,12 +442,19 @@ VSCODE_PID = 41037
 
 # Not a target:
 all:
+<<<<<<< HEAD
 #  Command-line target.
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has not been updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+=======
+#  Command line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has not been updated.
+>>>>>>> 71b716d249fde9d0ed9185c1d74d77b2022a867f
 
 # Not a target:
 .SUFFIXES:
@@ -207,23 +464,35 @@ all:
 
 # Not a target:
 Makefile:
+<<<<<<< HEAD
 #  A default, MAKEFILES, or -include/sinclude makefile.
+=======
+>>>>>>> 71b716d249fde9d0ed9185c1d74d77b2022a867f
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has been updated.
 #  Failed to be updated.
+<<<<<<< HEAD
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
 makefile:
 #  A default, MAKEFILES, or -include/sinclude makefile.
+=======
+
+# Not a target:
+makefile:
+>>>>>>> 71b716d249fde9d0ed9185c1d74d77b2022a867f
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has been updated.
 #  Failed to be updated.
+<<<<<<< HEAD
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+=======
+>>>>>>> 71b716d249fde9d0ed9185c1d74d77b2022a867f
 
 # Not a target:
 .DEFAULT:
@@ -233,11 +502,15 @@ makefile:
 
 # Not a target:
 GNUmakefile:
+<<<<<<< HEAD
 #  A default, MAKEFILES, or -include/sinclude makefile.
+=======
+>>>>>>> 71b716d249fde9d0ed9185c1d74d77b2022a867f
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has been updated.
 #  Failed to be updated.
+<<<<<<< HEAD
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
@@ -258,4 +531,27 @@ GNUmakefile:
 
  
 make: *** No rule to make target `all'.  Stop.
+=======
+
+# files hash-table stats:
+# Load=6/1024=1%, Rehash=0, Collisions=0/15=0%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 8 (7) / strings = 4055 / storage = 61622 B / avg = 15 B
+# current buf: size = 8174 B / used = 4456 B / count = 307 / avg = 14 B
+# other used: total = 53448 B / count = 3748 / avg = 14 B
+# other free: total = 52 B / max = 15 B / min = 1 B / avg = 7 B
+
+# strcache performance: lookups = 4250 / hit rate = 4%
+# hash-table stats:
+# Load=4055/8192=49%, Rehash=0, Collisions=1758/4250=41%
+# Finished Make data base on Thu Jul 28 09:40:36 2022
+
+ 
+make.exe: *** No rule to make target 'all'.  Stop.
+>>>>>>> 71b716d249fde9d0ed9185c1d74d77b2022a867f
 
