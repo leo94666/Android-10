@@ -717,6 +717,7 @@ int AndroidRuntime::startVm(JavaVM** pJavaVM, JNIEnv** pEnv, bool zygote)
         ALOGI("Leaving lock profiling enabled");
     }
 
+    /*下面的代码是用来设置JNI check选项的，JNIcheck就是NATIVE层调用JNI函数时，系统所做的一些检查工作。如，调用NEWUTFString函数时，系统会检测传入的字符串是否满足UTF-8编码格式。它还能检测资源是否被正确释放，但这个选项比较耗时，只有在eng版的系统里面才有，正式发布的user版是关闭了此功能的。下面几句代码就是有系统属性来控制是否使用JNI check。*/
     bool checkJni = false;
     property_get("dalvik.vm.checkjni", propBuf, "");
     if (strcmp(propBuf, "true") == 0) {
@@ -769,6 +770,7 @@ int AndroidRuntime::startVm(JavaVM** pJavaVM, JNIEnv** pEnv, bool zygote)
      * The default starting and maximum size of the heap.  Larger
      * values should be specified in a product property override.
      */
+    /*开始设置虚拟机的堆栈起始大小和最大大小，默认起始大小是4MB最大大小是16MB，不过绝大多数厂商都会更改这个值*/
     parseRuntimeOption("dalvik.vm.heapstartsize", heapstartsizeOptsBuf, "-Xms", "4m");
     parseRuntimeOption("dalvik.vm.heapsize", heapsizeOptsBuf, "-Xmx", "16m");
 
@@ -1083,6 +1085,7 @@ int AndroidRuntime::startVm(JavaVM** pJavaVM, JNIEnv** pEnv, bool zygote)
      * If this call succeeds, the VM is ready, and we can start issuing
      * JNI calls.
      */
+    /*最后调用JNI_CreateJavaVM 函数创建虚拟机,pEnv返回当前线程的JNIEnv，从这里就可以了解到VM是对进程而言的，JNIEnv是对线程而言的*/
     if (JNI_CreateJavaVM(pJavaVM, pEnv, &initArgs) < 0) {
         ALOGE("JNI_CreateJavaVM failed\n");
         return -1;
@@ -1618,13 +1621,15 @@ static const RegJNIRec gRegJNI[] = {
 /*
  * Register android native functions with the VM.
  */
-/*static*/ int AndroidRuntime::startReg(JNIEnv* env)
+/*static*/ 
+int AndroidRuntime::startReg(JNIEnv* env)
 {
     ATRACE_NAME("RegisterAndroidNatives");
     /*
      * This hook causes all future threads created in this process to be
      * attached to the JavaVM.  (This needs to go away in favor of JNI
      * Attach calls.)
+     * 设置Thread类的线程创建函数为javaCreateThreadEtc(这其实是一个hook函数)
      */
     androidSetCreateThreadFunc((android_create_thread_fn) javaCreateThreadEtc);
 
@@ -1638,6 +1643,7 @@ static const RegJNIRec gRegJNI[] = {
      */
     env->PushLocalFrame(200);
 
+    //注册JNI函数，gRegJNI是一个全局大数组，每个元素对应了一个JNI注册方法
     if (register_jni_procs(gRegJNI, NELEM(gRegJNI), env) < 0) {
         env->PopLocalFrame(NULL);
         return -1;
