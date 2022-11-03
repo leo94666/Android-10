@@ -4,3 +4,47 @@ make: Leaving directory `/Users/liyang/android-10'
  
 make: *** No targets specified and no makefile found.  Stop.
 
+[ 33% 7/21] glob location/java/**/*.java
+ 
+[ 38% 8/21] glob lowpan/java/**/*.java
+ 
+[ 42% 9/21] glob media/java/**/*.java
+ 
+[ 47% 10/21] glob media/mca/effect/java/**/*.java
+ 
+[ 52% 11/21] glob media/mca/filterfw/java/**/*.java
+ 
+[ 57% 12/21] glob media/mca/filterpacks/java/**/*.java
+ 
+[ 61% 13/21] glob opengl/java/**/*.java
+ 
+[ 66% 14/21] glob packages/apps/Launcher3/assets
+ 
+[ 71% 15/21] glob rs/java/**/*.java
+ 
+[ 76% 16/21] glob sax/java/**/*.java
+ 
+[ 80% 17/21] glob system/core/init/AndroidTest.xml
+ 
+[ 85% 18/21] glob telecomm/java/**/*.java
+ 
+[ 90% 19/21] glob telephony/java/**/*.java
+ 
+[ 95% 20/21] glob wifi/java/**/*.java
+ 
+No need to regenerate ninja file
+ 
+No need to regenerate ninja file
+ 
+No need to regenerate ninja file
+ 
+Starting ninja...
+ 
+17:16:10 Got signal: interrupt
+ 
+17:16:12 Still alive, killing subprocesses...
+ 
+17:16:12 ninja failed with: signal: killed
+ 
+make: *** [run_soong_ui] Error 1
+
